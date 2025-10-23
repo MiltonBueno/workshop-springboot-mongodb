@@ -12,6 +12,7 @@ import org.springframework.context.annotation.Configuration;
 
 import com.cursojava.workshopmongo.domain.Post;
 import com.cursojava.workshopmongo.domain.User;
+import com.cursojava.workshopmongo.dto.AuthorDTO;
 import com.cursojava.workshopmongo.repositories.PostRepository;
 import com.cursojava.workshopmongo.repositories.UserRepository;
 
@@ -31,6 +32,7 @@ public class Instantiation implements CommandLineRunner {
                 .withZone(ZoneId.of("GMT"));
 		
 		userRepository.deleteAll();
+		postRepository.deleteAll();
 		
 		User maria = new User(null, "Maria Brown", "maria@gmail.com");
 		User alex = new User(null, "Alex Green", "alex@gmail.com");
@@ -45,11 +47,11 @@ public class Instantiation implements CommandLineRunner {
 		                         .atStartOfDay(ZoneId.of("GMT"))
 		                         .toInstant();
 
-		
-		Post post1 = new Post(null, date1, "Partiu viagem", "Vou viajar para São Paulo. Abraços!", maria);
-		Post post2 = new Post(null, date2, "Bom dia", "Acordei feliz hoje!", maria);
-
 		userRepository.saveAll(Arrays.asList(maria, alex, bob));
+		
+		Post post1 = new Post(null, date1, "Partiu viagem", "Vou viajar para São Paulo. Abraços!", new AuthorDTO(maria));
+		Post post2 = new Post(null, date2, "Bom dia", "Acordei feliz hoje!", new AuthorDTO(maria));
+
 		postRepository.saveAll(Arrays.asList(post1, post2));
 	}
 
