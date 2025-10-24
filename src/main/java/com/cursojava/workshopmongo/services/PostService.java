@@ -1,5 +1,6 @@
 package com.cursojava.workshopmongo.services;
 
+import java.time.Instant;
 import java.util.List;
 import java.util.Optional;
 
@@ -25,5 +26,9 @@ public class PostService {
 		//return repo.findByTitleContainingIgnoreCase(text);
 		return repo.searchTitle(text);
 	}
-
+	
+	public List<Post> fullSearch(String text, Instant minDate, Instant maxDate) {
+		return repo.fullSearch(text, minDate, maxDate);
+	}
+	
 }
